@@ -13,3 +13,6 @@
 5. GO annotation file (wego) - Brassica_rapa_final.annot.wego 
 
 <!-- 6. SNP (between R500 & IMB211) file (vcf) - R500_IMB211.2014-03-25.vcf -->
+
+#### Plans
+Used the BEDtoGFF.pl script to convert 
