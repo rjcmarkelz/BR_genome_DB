@@ -1,5 +1,6 @@
 library(GenomicFeatures)
 library(ChIPpeakAnno)
+
 #used the BEDtoGFF.pl script to convert the BED file to GTF
 setwd("/Users/Cody_2/git.repos/brassica_genome_db/raw_data")
 ?system.file
@@ -78,44 +79,5 @@ transcriptsByOverlaps(brassica_db,gr)
 # A10_16069633 A10 83.30983 14.08732
 # A10_16032467 A10 84.54993 12.45285
 
-#########
-#########
-# playing around with some of the bioconductor packages
-# code should be ignored
-#########
-#########
-# ?BED2RangedData
-# brass_ranges <- BED2RangedData(test2,header=FALSE)
-# str(brass_ranges)
-# ?head
-# head(brass_ranges, n = 50L)
-
-# test3 <- read.table("brassica_rapa_final.gff3", header = FALSE)
-# head(test3)
-# str(test3)
 
 
-# ?makeTranscriptDbFromGFF
-# brapa_db <- makeTranscriptDbFromGFF("brassica_rapa_final.gtf",
-#                         format = "gtf",
-#                         exonRankAttributeName = NA,
-#                         # gffGeneIdAttributeName = NA,
-#                         chrominfo = NA,
-#                         dataSource = "bed2gtf",
-#                         species = "Brassica rapa",
-#                         #circ_seqs = NA
-#                         # miRBaseBuild = NA,
-#                         # useGenesAsTranscripts = FALSE
-#                         )
-
-# brapa_db <- makeTranscriptDbFromGFF("brassica_rapa_final.gff3",
-#                         format = "gff3",
-#                         exonRankAttributeName = NA,
-#                         # gffGeneIdAttributeName = NA,
-#                         chrominfo = NA,
-#                         dataSource = "bed2gtf",
-#                         species = "Brassica rapa",
-#                         #circ_seqs = NA
-#                         # miRBaseBuild = NA,
-#                         # useGenesAsTranscripts = FALSE
-#                         )
