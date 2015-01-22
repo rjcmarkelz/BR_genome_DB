@@ -2,7 +2,7 @@ library("biomaRt")
 #look at available marts
 listMarts()
 
-plant_genomes <- useMart("plants_mart_22")
+plant_genomes <- useMart("plants_mart_24")
 listDatasets(plant_genomes)
 
 brapa <- useDataset("brapa_eg_gene", mart = plant_genomes)
@@ -11,6 +11,6 @@ brapa <- useDataset("brapa_eg_gene", mart = plant_genomes)
 # biocLite("GenomicFeatures")
 library("GenomicFeatures")
 
-brapa_db <- makeTranscriptDbFromBiomart(biomart = "plants_mart_22",
+brapa_db <- makeTranscriptDbFromBiomart(biomart = "plants_mart_24",
 	           dataset = "brapa_eg_gene")
-
+brapa_db
