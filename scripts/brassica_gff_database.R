@@ -109,13 +109,13 @@ QTL.7.3.wider.LOD
 # A07x18905857 A07 63.49163 4.694500
 # A07x19521092 A07 65.12285 7.008322
 # A07x20306343 A07 68.38861 4.493748
-gr7_3 <- GRanges(seqnames = "A07", ranges = IRanges(start=18905857, end=20306343))
-gr7_3 
-gr7_3_candidates <- transcriptsByOverlaps(brassica_db, gr7_3)
-gr7_3_candidates$tx_name
-gr7_3_candidates
+gr7_3_wide <- GRanges(seqnames = "A07", ranges = IRanges(start=18905857, end=20306343))
+gr7_3_wide 
+gr7_3_wide_candidates <- transcriptsByOverlaps(brassica_db, gr7_3_wide)
+gr7_3_wide_candidates$tx_name
+gr7_3_wide_candidates
 ?write.table
-write.table(gr7_3_candidates$tx_name, "gr7_3_candidates.txt" )
+write.table(gr7_3_wide_candidates$tx_name, "gr7_3_wide_candidates.txt" )
 
 
 ?read.table
