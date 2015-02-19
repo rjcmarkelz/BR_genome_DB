@@ -1,3 +1,4 @@
+
 library(GenomicFeatures)
 library(ChIPpeakAnno)
 
@@ -56,7 +57,7 @@ head(splicings)
 
 brassica_db <- makeTranscriptDb(transcripts, splicings)
 brassica_db
-# succes
+# success
 class(brassica_db)
 ?RangedData
 ?GRanges
@@ -123,6 +124,54 @@ br_annotation <- read.table("Brassica_rapa_v1.5_final_annotation.txt", header = 
 head(br_annotation)
 tail(br_annotation)
 str(br_annotation)
+
+##############
+# 2015_02_19 marker ranges
+##############
+setwd("/Users/Cody_2/git.repos/brassica_genetic_map/input")
+snpmap <- read.delim("bin-genotypes_ref1.5_v0.1.1_tab.txt", header = TRUE, sep = "\t")
+head(snpmap)
+
+marker_ranges <- GRanges(seqnames = snpmap$chr, IRanges(start=snpmap$bin.start, end=snpmap$bin.end))
+head(marker_ranges)
+marker_ranges
+(marker_ranges)
+
+brassica_db
+#subset genes to remove scaffolds in db
+binned_genes <- transcriptsByOverlaps(brassica_db, marker_ranges)
+head(binned_genes)
+tail(binned_genes)
+binned_genes
+head(binned_genes$tx_name)
+
+# get overlap indices
+binned_genes2 <- findOverlaps(binned_genes, marker_ranges)
+str(binned_genes2)
+binned_genes2 
+
+#replace transcript ranges with bin range they fall into
+ranges(binned_genes)[queryHits(binned_genes2)] = ranges(marker_ranges)[subjectHits(binned_genes2)]
+
+# double check
+brassica_genes
+marker_ranges
+binned_genes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
