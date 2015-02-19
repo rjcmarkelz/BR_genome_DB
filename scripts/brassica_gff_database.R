@@ -21,8 +21,47 @@ str(br_bed)
 
 #transcripts data frame
 transcripts <- br_bed[,c("V4","V4","V1","V6","V2","V3")]
+head(transcripts, 10)
+tail(transcripts, 20)
+dup_transcripts <- as.numeric(duplicated(transcripts$tx_name))
+head(dup_transcripts)
+sum(dup_transcripts) # 0 
+
+
+scaf_num <- transcripts[ grep("Scaffold", transcripts$tx_chrom) , ]  
+dim(scaf_num)
+# 1760 scaffold genes
 head(transcripts)
-tail(transcripts)
+
+# new genes from upendra
+upendra_genes <- transcripts[ grep("Bra1", transcripts$tx_name) , ]  
+dim(upendra_genes)
+#2732    6
+head(upendra_genes)
+
+upendra_genes2 <- transcripts[ grep("Bra0", transcripts$tx_name) , ]  
+dim(upendra_genes2)
+
+# # Explore gaps on chromosome 5
+# A05     2926071 2914390 2937752
+# A05     8139901 8117310 8162493
+# A05     9725452 9523975 9926930 R500    R500    I
+# A05     18811891 18811483        18812300 
+dim(transcripts[transcripts$tx_chrom == "A05" & transcripts$tx_end > 2937752 & transcripts$tx_start < 8117310, ])
+head(transcripts[transcripts$tx_chrom == "A05" & transcripts$tx_end > 2937752 & transcripts$tx_start < 8117310, ], 20)
+# [1] 875   6
+
+# Explore gaps on chromosome 2
+# A02     2434565 2381099 2488032 
+# A02     9344913 9334845 9354981 
+dim(transcripts[transcripts$tx_chrom == "A02" & transcripts$tx_end > 2488032 & transcripts$tx_start < 9334845, ])
+head(transcripts[transcripts$tx_chrom == "A02" & transcripts$tx_end > 2488032 & transcripts$tx_start < 9334845, ], 20)
+# [1] 1201    6
+
+# 2015_02_19
+# It appears that the gene number reduction from the known marker bins below and the transcript database are caused by 
+# genes falling into: telemeric regions, marker gaps, and scaffolds where we have little information
+# from ~43000 we drop down to ~25000 that we can conservatively call allele specific expression
 
 #make unique id for each gene based on row number for now 1-44239
 transcripts$V4 <- rownames(transcripts)
@@ -130,12 +169,13 @@ str(br_annotation)
 ##############
 setwd("/Users/Cody_2/git.repos/brassica_genetic_map/input")
 snpmap <- read.delim("bin-genotypes_ref1.5_v0.1.1_tab.txt", header = TRUE, sep = "\t")
-head(snpmap)
+head(snpmap)[,1:20]
 
 marker_ranges <- GRanges(seqnames = snpmap$chr, IRanges(start=snpmap$bin.start, end=snpmap$bin.end))
 head(marker_ranges)
 marker_ranges
 (marker_ranges)
+
 
 brassica_db
 #subset genes to remove scaffolds in db
@@ -159,12 +199,54 @@ marker_ranges
 binned_genes
 
 
+binned_genes$tx_id
+binned_genes$ranges
 
 
+df <- data.frame(chr         = seqnames(binned_genes),
+                 bin.start   = start(binned_genes),
+                 bin.end     = end(binned_genes),
+                 tx_name     = binned_genes$tx_name)
+head(df)
+dim(df)
+setwd("/Users/Cody_2/git.repos/brassica_genetic_map/input")
+write.table(df, file="gene_marker_ranges.csv", sep=",", row.names = FALSE, col.names = TRUE)
+
+dim(df)
+dim(snpmap)
+?merge
+df_snpmap <- merge(df, snpmap, all.x = TRUE)
+head(df_snpmap)
+dim(df_snpmap)
+write.table(df_snpmap, file="gene_marker_ranges_merge.csv", sep=",", row.names = FALSE, col.names = TRUE)
+
+df_snpmap_red <- df_snpmap[,-c(1:3,5)]
+head(df_snpmap_red)
+#replace R500 with 0 and IMB211 with 1
+str(df_snpmap_red)
+
+df_snpmap_red[] <- lapply(df_snpmap_red, as.character)
+
+df_snpmap_red[df_snpmap_red == "R500"] <- 0
+df_snpmap_red[df_snpmap_red == "IMB211"] <- 1
+df_snpmap_red[df_snpmap_red == "HET"] <- NA
+head(df_snpmap_red)[,1:20]
+tail(df_snpmap_red)
+# R runs better with a long table compared to a wide one
+write.table(df_snpmap_red, file="gene_marker_contrast_matrix_long.csv", sep=",", row.names = TRUE, col.names = TRUE)
+
+#save col names as vector
+df_snpmap_names <- df_snpmap_red$tx_name
+df_snpmap_red <- df_snpmap_red[,-c(1)]
+
+#transpose for contrast matrix
+df_snpmap_red <- as.data.frame(t(df_snpmap_red))
+head(df_snpmap_red)[,1:20]
+colnames(df_snpmap_red) <- df_snpmap_names
+head(df_snpmap_red)[,1:20]
 
 
-
-
+write.table(df_snpmap_red, file="gene_marker_contrast_matrix.csv", sep=",", row.names = TRUE, col.names = TRUE)
 
 
 
