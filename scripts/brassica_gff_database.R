@@ -176,13 +176,13 @@ head(marker_ranges)
 marker_ranges
 (marker_ranges)
 
-
 brassica_db
 #subset genes to remove scaffolds in db
 binned_genes <- transcriptsByOverlaps(brassica_db, marker_ranges)
 head(binned_genes)
 tail(binned_genes)
 binned_genes
+# noticed that binned genes is only 25276 genes long, not 43456 like the brassica_db
 head(binned_genes$tx_name)
 
 # get overlap indices
@@ -198,7 +198,7 @@ brassica_genes
 marker_ranges
 binned_genes
 
-
+#print these rows
 binned_genes$tx_id
 binned_genes$ranges
 
