@@ -75,6 +75,9 @@ str(transcripts)
 transcripts$tx_id <- as.integer(transcripts$tx_id)
 transcripts$tx_id
 
+# write table for eQTL cis/trans
+write.table(transcripts, "transcripts_eqtl_start_stop_eqtl.csv", sep = ",", col.names = TRUE, row.names = FALSE)
+
 # splicings dataframe
 # will not include splice sites to simplify this for demonstration purposes
 # splice sites will all be length of gene until I figure out how to parse BED
