@@ -1,7 +1,7 @@
 ###README file for B.rapa (Chiifu) database files 
 
 ##### raw_data folder- commented out if I do not have these files
-
+<!--(
 <!-- 1. Chromosome file (fasta) - Brapa_sequence_v1.2.fa -->
 
 <!-- 2. CDS (Coding sequence) file (fasta) - Brassica_rapa_final.cds -->
@@ -34,4 +34,4 @@ finally used these options on the perl script in order to get it to run
 
 perl extract-utr.pl   --gff_file        /Users/Cody_2/git.repos/brassica_genome_db/raw_data/Brassica_rapa_v1.5_final_correct.gff3   --genome_fa_file  /Users/Cody_2/git.repos/brassica_genome_db/raw_data/Brapa_sequence_v1.5.fa   --cds_fa_file     /Users/Cody_2/git.repos/brassica_genome_db/raw_data/Brassica_rapa_v1.5_final.fa   --fiveprime   --utr_length      1000   --gene_length     0   --output_fa_file  Brapa_1000bp_upstream_3.fa
 
-copied output file into brassica_genome_db directory
+copied output file into brassica_genome_db directory )-->
