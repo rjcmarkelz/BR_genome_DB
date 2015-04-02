@@ -94,14 +94,13 @@ root <- createNode(graph, c("Structure"), Structure = "root")
 
 
 #traits
-# met_1_1 <- createNode(graph, c("metabolite","trait","leaf","shoot"),
-                   # name = "3-Hydroxypropyl")
 leaflength <- createNode(graph, c("leaflength","trait"), trait = "leaflength")
 petiolelength <- createNode(graph, c("petiolelength","trait"),
                    trait = "petiolelength")
 metab <- createNode(graph, c("metabolite","trait"),
                      name = "3-Hydroxypropyl", URL = "http://tinyurl.com/q8zrhsq")
-#delete(met_1_1)
+createRel(leaflength, "IN_STURCTURE", leaf)
+createRel(petiolelength, "IN_STURCTURE", petiole)
 
 
 ######
