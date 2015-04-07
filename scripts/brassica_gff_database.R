@@ -251,11 +251,104 @@ head(df_snpmap_red)[,1:20]
 
 write.table(df_snpmap_red, file="gene_marker_contrast_matrix.csv", sep=",", row.names = TRUE, col.names = TRUE)
 
+##############
+# 2015_04_3 branching 
+##############
+QTL1_range <- GRanges(seqnames = "A06", ranges = IRanges(start=6674642, end=18162101))
+QTL1_range 
+QTL1_range_candidates <- transcriptsByOverlaps(brassica_db, QTL1_range)
+QTL1_range_candidates$tx_name
+QTL1_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL1_range_candidates$tx_name, "Branching_QTL1.txt" )
 
+QTL2_range <- GRanges(seqnames = "A09", ranges = IRanges(start=10979146, end=20118570))
+QTL2_range 
+QTL2_range_candidates <- transcriptsByOverlaps(brassica_db, QTL2_range)
+QTL2_range_candidates$tx_name
+QTL2_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL2_range_candidates$tx_name, "Branching_QTL2.txt" )
 
+QTL3_range <- GRanges(seqnames = "A10", ranges = IRanges(start=1631569, end=13422306))
+QTL3_range 
+QTL3_range_candidates <- transcriptsByOverlaps(brassica_db, QTL3_range)
+QTL3_range_candidates$tx_name
+QTL3_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL3_range_candidates$tx_name, "Branching_QTL3.txt" )
 
+QTL4_range <- GRanges(seqnames = "A07", ranges = IRanges(start=23803155, end=24855082))
+QTL4_range 
+QTL4_range_candidates <- transcriptsByOverlaps(brassica_db, QTL4_range)
+QTL4_range_candidates$tx_name
+QTL4_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL4_range_candidates$tx_name, "Branching_QTL4.txt" )
 
+QTL5_range <- GRanges(seqnames = "A07", ranges = IRanges(start=12178600, end=13111909))
+QTL5_range 
+QTL5_range_candidates <- transcriptsByOverlaps(brassica_db, QTL5_range)
+QTL5_range_candidates$tx_name
+QTL5_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL5_range_candidates$tx_name, "Branching_QTL5.txt" )
 
+QTL6_range <- GRanges(seqnames = "A08", ranges = IRanges(start=19588369, end=20679206))
+QTL6_range 
+QTL6_range_candidates <- transcriptsByOverlaps(brassica_db, QTL6_range)
+QTL6_range_candidates$tx_name
+QTL6_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL6_range_candidates$tx_name, "Branching_QTL6.txt" )
+
+QTL7_range <- GRanges(seqnames = "A04", ranges = IRanges(start=3248299, end=12327483))
+QTL7_range 
+QTL7_range_candidates <- transcriptsByOverlaps(brassica_db, QTL7_range)
+QTL7_range_candidates$tx_name
+QTL7_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL7_range_candidates$tx_name, "Branching_QTL7.txt" )
+
+QTL8_range <- GRanges(seqnames = "A06", ranges = IRanges(start=5582169, end=8655497))
+QTL8_range 
+QTL8_range_candidates <- transcriptsByOverlaps(brassica_db, QTL8_range)
+QTL8_range_candidates$tx_name
+QTL8_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL8_range_candidates$tx_name, "Branching_QTL8.txt" )
+
+QTL9_range <- GRanges(seqnames = "A03", ranges = IRanges(start=11791866, end=22151769))
+QTL9_range 
+QTL9_range_candidates <- transcriptsByOverlaps(brassica_db, QTL9_range)
+QTL9_range_candidates$tx_name
+QTL9_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL9_range_candidates$tx_name, "Branching_QTL9.txt" )
+
+QTL10_range <- GRanges(seqnames = "A06", ranges = IRanges(start=11791866, end=22151769))
+QTL10_range 
+QTL10_range_candidates <- transcriptsByOverlaps(brassica_db, QTL10_range)
+QTL10_range_candidates$tx_name
+QTL10_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL10_range_candidates$tx_name, "Branching_QTL10.txt" )
+
+QTL11_range <- GRanges(seqnames = "A03", ranges = IRanges(start=24029011, end=24556705))
+QTL11_range 
+QTL11_range_candidates <- transcriptsByOverlaps(brassica_db, QTL11_range)
+QTL11_range_candidates$tx_name
+QTL11_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL11_range_candidates$tx_name, "Branching_QTL11.txt" )
+
+QTL12_range <- GRanges(seqnames = "A03", ranges = IRanges(start=33896102, end=38599148))
+QTL12_range 
+QTL12_range_candidates <- transcriptsByOverlaps(brassica_db, QTL12_range)
+QTL12_range_candidates$tx_name
+QTL12_range_candidates
+setwd("/Users/Cody_2/git.repos/brassica_branching/")
+write.table(QTL12_range_candidates$tx_name, "Branching_QTL12.txt" )
 
 
 
