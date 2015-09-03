@@ -104,6 +104,7 @@ class(brassica_db)
 ?RangedData
 ?GRanges
 
+save(brassica_db, file = "brassica_gene_db.RData")
 #example QTL output
 # > bayesint(out_em_2, "A10", prob = 0.98, expandtomarkers = TRUE)
 #              chr      pos      lod
@@ -214,6 +215,11 @@ head(df)
 dim(df)
 setwd("/Users/Cody_2/git.repos/brassica_genetic_map/input")
 write.table(df, file="gene_marker_ranges.csv", sep=",", row.names = FALSE, col.names = TRUE)
+
+# for tiffany app
+
+df <- read.table("gene_marker_ranges.csv", sep=",", header = TRUE)
+head(df)
 
 dim(df)
 dim(snpmap)
