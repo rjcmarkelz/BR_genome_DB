@@ -25,5 +25,10 @@ br_ar_mr$value <- as.character(br_ar_mr$value)
 br_ar_mr$V1 <- as.character(br_ar_mr$V1)
 unique(br_ar_mr$V1)
 
+# gene expression of each gene
+# index back into list data structure
+# reformat object
+# run model
+
 
 
