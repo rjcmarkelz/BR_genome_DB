@@ -57,16 +57,21 @@ dim(shade_genes)
 br_sub <- br_sub[!(duplicated(br_sub[c("V1","V2")]) | duplicated(br_sub[c("V1","V2")], fromLast = TRUE)), ]
 dim(br_sub)
 head(br_sub)
+br_sub <- br_sub[1:2]
+br_sub
+
 
 # go to data directory
 setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
 
 # large file (112 MB) takes about 1 minute to get into memory
-mapped_counts <- read.delim("RIL_v1.5_mapping.tsv", header = TRUE, sep = "\t")
+mapped_counts2 <- read.delim("RIL_v1.5_mapping.tsv", header = TRUE, sep = "\t")
+dim(mapped_counts2)
 dim(mapped_counts)
 # [1] 43151   843
 
-colnames(mapped_counts)
+colnames(mapped_counts2)
+rownames(mapped_counts2)[1:10]
 
 #replace all NA values with 0 
 mapped_counts[is.na(mapped_counts)] <- 0
@@ -75,6 +80,7 @@ tail(mapped_counts)
 
 #remove first row
 mapped_counts <- mapped_counts[-1,]
+mapped_counts2 <- mapped_counts2[-1,]
 head(mapped_counts)[,1:10]
 
 #remove these columns from full dataset because either CR or UN are missing
@@ -94,6 +100,8 @@ library(DESeq2)
 rownames(mapped_counts) <- mapped_counts$mapped_counts
 mapped_counts <- mapped_counts[-1]
 dim(mapped_counts)
+head(mapped_counts[1:10])
+head(mapped_counts2[1:10])
 
 samples <- as.data.frame(names(mapped_counts))
 colnames(samples) <- paste("samples")
@@ -112,6 +120,26 @@ dim(samples)
 dds <- DESeqDataSetFromMatrix(countData = mapped_counts, colData = samples, design = ~ condition)
 
 vsd <- varianceStabilizingTransformation(dds)
+rld <- rlog(dds, fast = TRUE)
+
+?rlog
+head(rld)
+str(rld)
+assays <- as.data.frame(assay(rld))
+str(assays)
+assays[1]
+assays$gene <- mapped_counts2$gene
+head(assays)[1:10]
+
+br_genes <- br_sub$V1
+vst_shade <- assays[assays$gene %in% br_genes,]
+dim(vst_shade)
+head(vst_shade)[1:10]
+vst_shade <- vst_shade[c(836,1:835)]
+# go to data directory
+setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
+?write.table
+write.table(vst_shade, "rlog2_shade_brassica_shade.csv", sep = ",", row.names = FALSE)
 
 
 # infile shade genes
@@ -119,4 +147,9 @@ vsd <- varianceStabilizingTransformation(dds)
 # remove duplicates
 # subset counts file
 # VST with DEseq
+# dists <- dist(t(assay(rld)))
+# plot(hclust(dists))
+
+
+
 
