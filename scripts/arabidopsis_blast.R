@@ -8,8 +8,10 @@ ar_met <- read.table("Athal_metabolism.csv", sep = ",")
 head(ar_met)
 ar_met
 ?sub
+
+#remove .1 on AT names
 br_ar$V2 <- sub("(\\.)(\\d)", "", br_ar$V2)
-br_ar_t
+
 
 br_sub <- as.data.frame(br_ar[which(br_ar$V2 %in% ar_met$value),])
 head(br_sub)
@@ -25,11 +27,10 @@ br_ar_mr$value <- as.character(br_ar_mr$value)
 br_ar_mr$V1 <- as.character(br_ar_mr$V1)
 unique(br_ar_mr$V1)
 
-# gene expression of each gene
-# index back into list data structure
-# reformat object
-# run model
-
+# go to data directory
+setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
+write.table(br_sub, "br_met_genes.csv", sep = ",", col.names = TRUE, row.names = FALSE)
+head(br_sub)
 
 
 # shade genes
@@ -39,26 +40,32 @@ read.table(strings)
 shade_genes <- read.table("athal_shade_genes.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
 head(shade_genes)
 dim(shade_genes)
-duplicated
+
+# find duplicates
 dups <- duplicated(shade_genes$AGI)
 dups
 shade_genes <- shade_genes[!duplicated(shade_genes$AGI),]
 dim(shade_genes)
-
+# 94 arabidopsis genes
 
 br_sub <- as.data.frame(br_ar[which(br_ar$V2 %in% shade_genes$AGI),])
-dim(br_sub)
+dim(br_sub) #258
 head(br_sub)
 
-shade_genes <- shade_genes[!duplicated(shade_genes$AGI),]
-dim(shade_genes)
-
 # ideally based on fit scores, but just want to take a quick look
+# need to figure out fit scores
 br_sub <- br_sub[!(duplicated(br_sub[c("V1","V2")]) | duplicated(br_sub[c("V1","V2")], fromLast = TRUE)), ]
-dim(br_sub)
+dim(br_sub) # 189
 head(br_sub)
 br_sub <- br_sub[1:2]
 br_sub
+
+# go to data directory
+setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
+write.table(br_sub, "br_shade_genes.csv", sep = ",", col.names = TRUE, row.names = FALSE)
+head(br_sub)
+
+
 
 
 # go to data directory
@@ -121,11 +128,11 @@ dds <- DESeqDataSetFromMatrix(countData = mapped_counts, colData = samples, desi
 
 vsd <- varianceStabilizingTransformation(dds)
 rld <- rlog(dds, fast = TRUE)
-
+rld2 <- rlog(dds, blind = FALSE, fast = TRUE)
 ?rlog
-head(rld)
-str(rld)
-assays <- as.data.frame(assay(rld))
+head(rld2)
+str(rld2)
+assays <- as.data.frame(assay(rld2))
 str(assays)
 assays[1]
 assays$gene <- mapped_counts2$gene
@@ -147,7 +154,7 @@ write.table(vst_shade, "rlog2_shade_brassica_shade.csv", sep = ",", row.names = 
 # remove duplicates
 # subset counts file
 # VST with DEseq
-# dists <- dist(t(assay(rld)))
+# dists <- dist(t(assay(rld2)))
 # plot(hclust(dists))
 
 
