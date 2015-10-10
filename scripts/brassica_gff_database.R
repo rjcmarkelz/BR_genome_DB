@@ -174,6 +174,7 @@ str(br_annotation)
 setwd("/Users/Cody_2/git.repos/brassica_genetic_map/input")
 snpmap <- read.delim("bin-genotypes_ref1.5_v0.1.1_tab.txt", header = TRUE, sep = "\t")
 head(snpmap)[,1:20]
+dim(snpmap)
 
 marker_ranges <- GRanges(seqnames = snpmap$chr, IRanges(start=snpmap$bin.start, end=snpmap$bin.end))
 head(marker_ranges)

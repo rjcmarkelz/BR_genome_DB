@@ -149,6 +149,23 @@ setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
 write.table(vst_shade, "rlog2_shade_brassica_shade.csv", sep = ",", row.names = FALSE)
 
 
+setwd("/Users/Cody_2/git.repos/brassica_genetic_map/Input")
+gene_contrasts <- read.table("gene_marker_contrast_matrix_long.csv", sep = ",", header = TRUE)
+head(gene_contrasts)
+dim(gene_contrasts)
+
+setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
+vst_shade <- read.table("rlog2_shade_brassica_shade.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
+head(vst_shade)[1:10]
+dim(vst_shade)
+
+
+setwd("/Users/Cody_2/git.repos/brassica_eqtl_v1.5/data")
+gene_genotype <- gene_contrasts[gene_contrasts$tx_name %in% vst_shade$gene,]
+dim(gene_genotype)
+head(gene_genotype)
+write.table(gene_genotype, "shade_gene_cis_genotypes_v1.csv", sep = ",", row.names = FALSE)
+
 # infile shade genes
 # join athal blast N table
 # remove duplicates
