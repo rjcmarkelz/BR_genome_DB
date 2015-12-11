@@ -96,8 +96,9 @@ head(splicings)
 colnames(splicings) <- c("tx_id", "exon_rank", "exon_start", "exon_end")
 head(splicings)
 
-
-brassica_db <- makeTranscriptDb(transcripts, splicings)
+# replace makeTranscriptDb with makeTxDb for new version 
+# of GenomicFeatures package
+brassica_db <- makeTxDb(transcripts, splicings)
 brassica_db
 # success
 class(brassica_db)
